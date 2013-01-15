@@ -49,6 +49,12 @@ typedef NSUInteger MSRequestAudioFormat;
 @property (nonatomic, strong) NSString *accessToken;
 
 - (void)requestTranslate:(NSString *)text
+                      to:(NSString *)to
+        blockWithSuccess:(void (^)(NSString *translatedText))successBlock
+                 failure:(void (^)(NSError *error))failureBlock;
+
+//if 'from' is a nil, 'from language' automatically detect.
+- (void)requestTranslate:(NSString *)text
                     from:(NSString *)from
                       to:(NSString *)to
         blockWithSuccess:(void (^)(NSString *translatedText))successBlock

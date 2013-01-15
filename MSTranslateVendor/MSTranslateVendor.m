@@ -29,6 +29,14 @@ NSString * const kRequestTranslate       = @"requestTranslate";
 NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
 
 - (void)requestTranslate:(NSString *)text
+                      to:(NSString *)to
+        blockWithSuccess:(void (^)(NSString *translatedText))successBlock
+                 failure:(void (^)(NSError *error))failureBlock
+{
+    [self requestTranslate:text from:nil to:to blockWithSuccess:successBlock failure:failureBlock];
+}
+
+- (void)requestTranslate:(NSString *)text
                     from:(NSString *)from
                       to:(NSString *)to
         blockWithSuccess:(void (^)(NSString *translatedText))successBlock
@@ -56,8 +64,16 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
     _request = [[NSMutableURLRequest alloc] init];
     
     NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", (!_accessToken)?[MSTranslateAccessTokenRequester sharedRequester].accessToken:_accessToken] urlEncodedUTF8String];
-    
-    NSString *uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&from=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], from, to];
+
+    NSString *uriString;
+    if(from)
+    {
+           uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&from=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], from, to];
+    }
+    else
+    {
+           uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],to];
+    }
     
     NSURL *uri = [NSURL URLWithString:uriString];
     
