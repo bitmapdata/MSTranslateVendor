@@ -36,6 +36,13 @@
 
 #import <Foundation/Foundation.h>
 
+enum
+{
+    MP3_FORMAT,
+    WAV_FORMAT
+};
+typedef NSUInteger MSRequestAudioFormat;
+
 @interface MSTranslateVendor : NSObject<NSXMLParserDelegate>
 
 //default is getting a [MSTranslateAccessTokenRequester sharedRequester].accessToken
@@ -50,4 +57,15 @@
 - (void)requestDetectTextLanguage:(NSString *)text
                  blockWithSuccess:(void (^)(NSString *language))successBlock
                           failure:(void (^)(NSError *error))failureBlock;
+
+- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
+
+- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+                audioFormat:(MSRequestAudioFormat)requestAudioFormat
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
 @end

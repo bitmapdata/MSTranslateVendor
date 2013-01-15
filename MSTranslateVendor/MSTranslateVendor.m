@@ -69,11 +69,14 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
          _parser.tag = 1;
          _parser.delegate = self;
          
+         if(error)
+         {
+             failureBlock(error);
+         }
          if(![_parser parse])
          {
              failureBlock(_parser.parserError);
          }
-
      }];
 }
 
@@ -115,11 +118,64 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
          _parser.tag = 2;
          _parser.delegate = self;
          
+         if(error)
+         {
+             failureBlock(error);
+         }
          if(![_parser parse])
          {
              failureBlock(_parser.parserError);
          }
 
+     }];
+}
+
+- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock
+{
+    [self requestSpeakingText:text language:language audioFormat:MP3_FORMAT blockWithSuccess:successBlock failure:failureBlock];
+}
+
+- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+                audioFormat:(MSRequestAudioFormat)requestAudioFormat
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock
+{
+    NSString *content_type;
+    switch (requestAudioFormat)
+    {
+        case MP3_FORMAT:
+            content_type = @"audio/wav";
+            break;
+        case WAV_FORMAT:
+            content_type = @"audio/mp3";
+            break;
+        default:
+            content_type = @"audio/mp3";
+            break;
+    }
+    
+    _request = [[NSMutableURLRequest alloc] init];
+    
+    NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", (!_accessToken)?[MSTranslateAccessTokenRequester sharedRequester].accessToken:_accessToken] urlEncodedUTF8String];
+    
+    NSString *uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Speak?appId=%@&text=%@&language=%@&format=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], language, content_type];
+    
+    NSURL *uri = [NSURL URLWithString:uriString];
+    
+    [_request setURL:[uri standardizedURL]];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         successBlock(data);
+         
+         if(error)
+         {
+             failureBlock(error);
+         }
      }];
 }
 
@@ -155,8 +211,7 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
             [[NSNotificationCenter defaultCenter] postNotificationName:kRequestDetectLanguage object:@{@"result" : string, @"isSuccessful": @YES}];
         }
     }
-    
-    if([_elementString isEqualToString:@"h1"])
+    else if([_elementString isEqualToString:@"h1"])
     {
         if([string isEqualToString:@"Argument Exception"])
         {
