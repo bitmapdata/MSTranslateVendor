@@ -55,7 +55,7 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
     
     _request = [[NSMutableURLRequest alloc] init];
     
-    NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", [MSTranslateAccessTokenRequester sharedRequester].accessToken] urlEncodedUTF8String];
+    NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", (!_accessToken)?[MSTranslateAccessTokenRequester sharedRequester].accessToken:_accessToken] urlEncodedUTF8String];
     
     NSString *uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&from=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], from, to];
     
@@ -101,7 +101,7 @@ NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
     
     _request = [[NSMutableURLRequest alloc] init];
     
-    NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", [MSTranslateAccessTokenRequester sharedRequester].accessToken] urlEncodedUTF8String];
+    NSString *_appId = [[NSString stringWithFormat:@"Bearer %@", (!_accessToken)?[MSTranslateAccessTokenRequester sharedRequester].accessToken:_accessToken] urlEncodedUTF8String];
     
     NSString *uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Detect?appId=%@&text=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     

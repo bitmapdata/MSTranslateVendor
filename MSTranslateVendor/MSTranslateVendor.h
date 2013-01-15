@@ -38,6 +38,9 @@
 
 @interface MSTranslateVendor : NSObject<NSXMLParserDelegate>
 
+//default is getting a [MSTranslateAccessTokenRequester sharedRequester].accessToken
+@property (nonatomic, strong) NSString *accessToken;
+
 - (void)requestTranslate:(NSString *)text
                     from:(NSString *)from
                       to:(NSString *)to
