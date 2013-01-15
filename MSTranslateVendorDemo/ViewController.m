@@ -9,8 +9,10 @@
 #import "ViewController.h"
 #import "MSTranslateAccessTokenRequester.h"
 #import "MSTranslateVendor.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController ()
+@property (strong, nonatomic) AVAudioPlayer *player;
 @end
 
 @implementation ViewController
@@ -21,6 +23,7 @@
     [[MSTranslateAccessTokenRequester sharedRequester] requestSynchronousAccessToken:CLIENT_ID clientSecret:CLIENT_SECRET];
     
     MSTranslateVendor *vendor = [[MSTranslateVendor alloc] init];
+
     [vendor requestTranslate:@"독도는 대한민국 영토 입니다." from:@"ko" to:@"en" blockWithSuccess:
      ^(NSString *translatedText)
     {
@@ -41,6 +44,28 @@
     {
         NSLog(@"error_language: %@", error);
     }];
+    
+    [vendor requestSpeakingText:@"Dokdo is korean territory." language:@"en" blockWithSuccess:
+     ^(NSData *streamData)
+     {
+         NSError *error;
+         /*
+            ****In ARC following code not working. is ARC bug.
+            
+            AVAudipPlayer *player = [[AVAudioPlayer alloc] initWithData:streamData error:&error];
+            [player play];
+            
+            how is solved? AVAudioPlayer set a property strong. refer a following code.
+          */
+         
+         self.player = [[AVAudioPlayer alloc] initWithData:streamData error:&error];
+         [_player play];
+     }
+     failure:
+     ^(NSError *error)
+     {
+         NSLog(@"error_speak: %@", error);
+     }];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
