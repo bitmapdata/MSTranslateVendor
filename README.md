@@ -60,7 +60,19 @@ In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must 
     {
         NSLog(@"error_detect: %@", error);
     }];
-
+    
+    [vendor requestSpeakingText:@"Dokdo is korean territory." language:@"en" blockWithSuccess:
+     ^(NSData *streamData)
+     {
+         NSError *error;
+         self.player = [[AVAudioPlayer alloc] initWithData:streamData error:&error];
+         [_player play];
+     }
+     failure:
+     ^(NSError *error)
+     {
+         NSLog(@"error_speak: %@", error);
+     }];
 
 ## License ##
 
