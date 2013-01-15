@@ -26,28 +26,31 @@ Drag the included MSTranslateVendor folder into your project.
 
 ## Usage ##
 
-In MSTranslateAccessTokenRequester.h <b>`CLIENT_ID`, `CLIENT_SECRET`</b> must change to Client id and Client secret your registered applications. refer a above image.
+In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must change to Client id and Client secret your registered applications. refer a above image.
 
     #define CLIENT_ID       @""
     #define CLIENT_SECRET   @""
 
 ## Sample Code ##
 
+    #import "MSTranslateAccessTokenRequester.h"
+    #import "MSTranslateVendor.h"
+    
     //Must be called before used to MSTranslateVendor
     [[MSTranslateAccessTokenRequester sharedRequester] requestSynchronousAccessToken:CLIENT_ID clientSecret:CLIENT_SECRET];
-
+    
     MSTranslateVendor *vendor = [[MSTranslateVendor alloc] init];
-    [vendor requestTranslate:@"µ¶µµ´Â ´ëÇÑ¹Î±¹ ¿µÅä ÀÔ´Ï´Ù." from:@"ko" to:@"en" blockWithSuccess:
+    [vendor requestTranslate:@"ë…ë„ëŠ” ëŒ€í•œë¯¼êµ­ ì˜í†  ì…ë‹ˆë‹¤." from:@"ko" to:@"en" blockWithSuccess:
      ^(NSString *translatedText)
     {
         NSLog(@"translatedText: %@", translatedText);
     }
     failure:^(NSError *error)
     {
-        NSLog(@"error: %@", error);
+        NSLog(@"error_translate: %@", error);
     }];
     
-    [vendor requestDetectTextLanguage:@"µ¶µµ´Â ´ëÇÑ¹Î±¹ ¿µÅä ÀÔ´Ï´Ù." blockWithSuccess:
+    [vendor requestDetectTextLanguage:@"ë…ë„ëŠ” ëŒ€í•œë¯¼êµ­ ì˜í†  ì…ë‹ˆë‹¤." blockWithSuccess:
      ^(NSString *language)
     {
         NSLog(@"language:%@", language);
@@ -55,8 +58,9 @@ In MSTranslateAccessTokenRequester.h <b>`CLIENT_ID`, `CLIENT_SECRET`</b> must ch
     failure:
      ^(NSError *error)
     {
-        
+        NSLog(@"error_detect: %@", error);
     }];
+
 
 ## License ##
 
