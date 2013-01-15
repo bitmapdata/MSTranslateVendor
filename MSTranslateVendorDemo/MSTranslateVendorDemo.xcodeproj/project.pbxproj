@@ -21,6 +21,7 @@
 		EE8AB69D16A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69516A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m */; };
 		EE8AB69E16A5392F00938ED4 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69816A5392F00938ED4 /* NSString+Extend.m */; };
 		EE8AB6A316A5397A00938ED4 /* NSXMLParser+Taged.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */; };
+		EE8AB6A616A541DD00938ED4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8AB6A516A541DD00938ED4 /* AVFoundation.framework */; };
 		EEEC567816A3C6570074E885 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567716A3C6570074E885 /* UIKit.framework */; };
 		EEEC567A16A3C6570074E885 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567916A3C6570074E885 /* Foundation.framework */; };
 		EEEC567C16A3C6570074E885 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567B16A3C6570074E885 /* CoreGraphics.framework */; };
@@ -50,6 +51,7 @@
 		EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLParser+Taged.m"; sourceTree = "<group>"; };
 		EE8AB6A216A5397900938ED4 /* NSXMLParser+Taged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Taged.h"; sourceTree = "<group>"; };
 		EE8AB6A416A5398100938ED4 /* NSObject+Subscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Subscripts.h"; sourceTree = "<group>"; };
+		EE8AB6A516A541DD00938ED4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EEEC567316A3C6570074E885 /* MSTranslateVendorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSTranslateVendorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEEC567716A3C6570074E885 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EEEC567916A3C6570074E885 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE8AB6A616A541DD00938ED4 /* AVFoundation.framework in Frameworks */,
 				EEEC567816A3C6570074E885 /* UIKit.framework in Frameworks */,
 				EEEC567A16A3C6570074E885 /* Foundation.framework in Frameworks */,
 				EEEC567C16A3C6570074E885 /* CoreGraphics.framework in Frameworks */,
@@ -119,6 +122,7 @@
 		EEEC567616A3C6570074E885 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE8AB6A516A541DD00938ED4 /* AVFoundation.framework */,
 				EEEC567716A3C6570074E885 /* UIKit.framework */,
 				EEEC567916A3C6570074E885 /* Foundation.framework */,
 				EEEC567B16A3C6570074E885 /* CoreGraphics.framework */,
