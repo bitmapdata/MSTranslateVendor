@@ -31,6 +31,8 @@ In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must 
     #define CLIENT_ID       @""
     #define CLIENT_SECRET   @""
 
+These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Compile Sources' Build Phase for each file if you aren't using ARC project-wide
+
 ## Sample Code ##
 
     #import "MSTranslateAccessTokenRequester.h"
