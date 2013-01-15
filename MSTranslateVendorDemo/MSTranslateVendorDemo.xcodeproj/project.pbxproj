@@ -15,15 +15,15 @@
 		EE8AB54216A3FA2500938ED4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB53816A3FA2500938ED4 /* ViewController.m */; };
 		EE8AB54816A3FA2A00938ED4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE8AB54416A3FA2A00938ED4 /* InfoPlist.strings */; };
 		EE8AB54916A3FA2A00938ED4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8AB54616A3FA2A00938ED4 /* MainStoryboard.storyboard */; };
-		EE8AB56116A4160800938ED4 /* MSTranslateVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB56016A4160800938ED4 /* MSTranslateVendor.m */; };
 		EE8AB56316A4174900938ED4 /* MSTranslateVendorDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE8AB56216A4174800938ED4 /* MSTranslateVendorDemo-Info.plist */; };
-		EE8AB62E16A4563400938ED4 /* NSXMLParser+Taged.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB62D16A4563300938ED4 /* NSXMLParser+Taged.m */; };
+		EE8AB69B16A5392F00938ED4 /* MSTranslateAccessTokenRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69116A5392F00938ED4 /* MSTranslateAccessTokenRequester.m */; };
+		EE8AB69C16A5392F00938ED4 /* MSTranslateVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69316A5392F00938ED4 /* MSTranslateVendor.m */; };
+		EE8AB69D16A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69516A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m */; };
+		EE8AB69E16A5392F00938ED4 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69816A5392F00938ED4 /* NSString+Extend.m */; };
+		EE8AB6A316A5397A00938ED4 /* NSXMLParser+Taged.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */; };
 		EEEC567816A3C6570074E885 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567716A3C6570074E885 /* UIKit.framework */; };
 		EEEC567A16A3C6570074E885 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567916A3C6570074E885 /* Foundation.framework */; };
 		EEEC567C16A3C6570074E885 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567B16A3C6570074E885 /* CoreGraphics.framework */; };
-		EEEC56BD16A3F6FE0074E885 /* MSTranslateAccessTokenRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC56B816A3F6FE0074E885 /* MSTranslateAccessTokenRequester.m */; };
-		EEEC56BE16A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC56BA16A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.m */; };
-		EEEC56BF16A3F6FE0074E885 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC56BC16A3F6FE0074E885 /* NSString+Extend.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,22 +38,22 @@
 		EE8AB53B16A3FA2500938ED4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = SOURCE_ROOT; };
 		EE8AB54516A3FA2A00938ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		EE8AB54716A3FA2A00938ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
-		EE8AB55F16A4160700938ED4 /* MSTranslateVendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTranslateVendor.h; sourceTree = "<group>"; };
-		EE8AB56016A4160800938ED4 /* MSTranslateVendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTranslateVendor.m; sourceTree = "<group>"; };
 		EE8AB56216A4174800938ED4 /* MSTranslateVendorDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MSTranslateVendorDemo-Info.plist"; sourceTree = SOURCE_ROOT; };
-		EE8AB62C16A4563300938ED4 /* NSXMLParser+Taged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Taged.h"; sourceTree = "<group>"; };
-		EE8AB62D16A4563300938ED4 /* NSXMLParser+Taged.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLParser+Taged.m"; sourceTree = "<group>"; };
-		EE8AB67F16A50EAA00938ED4 /* NSObject+Subscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Subscripts.h"; sourceTree = "<group>"; };
+		EE8AB69116A5392F00938ED4 /* MSTranslateAccessTokenRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTranslateAccessTokenRequester.m; sourceTree = "<group>"; };
+		EE8AB69216A5392F00938ED4 /* MSTranslateVendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTranslateVendor.h; sourceTree = "<group>"; };
+		EE8AB69316A5392F00938ED4 /* MSTranslateVendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTranslateVendor.m; sourceTree = "<group>"; };
+		EE8AB69416A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+WebServiceExtend.h"; sourceTree = "<group>"; };
+		EE8AB69516A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+WebServiceExtend.m"; sourceTree = "<group>"; };
+		EE8AB69716A5392F00938ED4 /* NSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extend.h"; sourceTree = "<group>"; };
+		EE8AB69816A5392F00938ED4 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
+		EE8AB6A016A5394600938ED4 /* MSTranslateAccessTokenRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTranslateAccessTokenRequester.h; sourceTree = "<group>"; };
+		EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLParser+Taged.m"; sourceTree = "<group>"; };
+		EE8AB6A216A5397900938ED4 /* NSXMLParser+Taged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Taged.h"; sourceTree = "<group>"; };
+		EE8AB6A416A5398100938ED4 /* NSObject+Subscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Subscripts.h"; sourceTree = "<group>"; };
 		EEEC567316A3C6570074E885 /* MSTranslateVendorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSTranslateVendorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEEC567716A3C6570074E885 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EEEC567916A3C6570074E885 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EEEC567B16A3C6570074E885 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		EEEC56B716A3F6FE0074E885 /* MSTranslateAccessTokenRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTranslateAccessTokenRequester.h; sourceTree = "<group>"; };
-		EEEC56B816A3F6FE0074E885 /* MSTranslateAccessTokenRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTranslateAccessTokenRequester.m; sourceTree = "<group>"; };
-		EEEC56B916A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+WebServiceExtend.h"; sourceTree = "<group>"; };
-		EEEC56BA16A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+WebServiceExtend.m"; sourceTree = "<group>"; };
-		EEEC56BB16A3F6FE0074E885 /* NSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extend.h"; sourceTree = "<group>"; };
-		EEEC56BC16A3F6FE0074E885 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,11 +79,30 @@
 			path = en.lproj;
 			sourceTree = SOURCE_ROOT;
 		};
+		EE8AB68F16A5392F00938ED4 /* MSTranslateVendor */ = {
+			isa = PBXGroup;
+			children = (
+				EE8AB6A416A5398100938ED4 /* NSObject+Subscripts.h */,
+				EE8AB6A016A5394600938ED4 /* MSTranslateAccessTokenRequester.h */,
+				EE8AB69116A5392F00938ED4 /* MSTranslateAccessTokenRequester.m */,
+				EE8AB69216A5392F00938ED4 /* MSTranslateVendor.h */,
+				EE8AB69316A5392F00938ED4 /* MSTranslateVendor.m */,
+				EE8AB69416A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.h */,
+				EE8AB69516A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m */,
+				EE8AB69716A5392F00938ED4 /* NSString+Extend.h */,
+				EE8AB69816A5392F00938ED4 /* NSString+Extend.m */,
+				EE8AB6A216A5397900938ED4 /* NSXMLParser+Taged.h */,
+				EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */,
+			);
+			name = MSTranslateVendor;
+			path = ../MSTranslateVendor;
+			sourceTree = "<group>";
+		};
 		EEEC566816A3C6570074E885 = {
 			isa = PBXGroup;
 			children = (
 				EEEC567D16A3C6570074E885 /* MSTranslateVendorDemo */,
-				EEEC56B616A3F6FE0074E885 /* MSTranslateVendor */,
+				EE8AB68F16A5392F00938ED4 /* MSTranslateVendor */,
 				EEEC567616A3C6570074E885 /* Frameworks */,
 				EEEC567416A3C6570074E885 /* Products */,
 			);
@@ -124,25 +143,6 @@
 			);
 			name = MSTranslateVendorDemo;
 			path = MSTranslateVendor;
-			sourceTree = "<group>";
-		};
-		EEEC56B616A3F6FE0074E885 /* MSTranslateVendor */ = {
-			isa = PBXGroup;
-			children = (
-				EE8AB67F16A50EAA00938ED4 /* NSObject+Subscripts.h */,
-				EEEC56B716A3F6FE0074E885 /* MSTranslateAccessTokenRequester.h */,
-				EEEC56B816A3F6FE0074E885 /* MSTranslateAccessTokenRequester.m */,
-				EE8AB55F16A4160700938ED4 /* MSTranslateVendor.h */,
-				EE8AB56016A4160800938ED4 /* MSTranslateVendor.m */,
-				EEEC56B916A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.h */,
-				EEEC56BA16A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.m */,
-				EEEC56BB16A3F6FE0074E885 /* NSString+Extend.h */,
-				EEEC56BC16A3F6FE0074E885 /* NSString+Extend.m */,
-				EE8AB62C16A4563300938ED4 /* NSXMLParser+Taged.h */,
-				EE8AB62D16A4563300938ED4 /* NSXMLParser+Taged.m */,
-			);
-			name = MSTranslateVendor;
-			path = ../MSTranslateVendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,14 +212,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEEC56BD16A3F6FE0074E885 /* MSTranslateAccessTokenRequester.m in Sources */,
-				EEEC56BE16A3F6FE0074E885 /* NSMutableURLRequest+WebServiceExtend.m in Sources */,
-				EEEC56BF16A3F6FE0074E885 /* NSString+Extend.m in Sources */,
 				EE8AB54016A3FA2500938ED4 /* AppDelegate.m in Sources */,
 				EE8AB54116A3FA2500938ED4 /* main.m in Sources */,
 				EE8AB54216A3FA2500938ED4 /* ViewController.m in Sources */,
-				EE8AB56116A4160800938ED4 /* MSTranslateVendor.m in Sources */,
-				EE8AB62E16A4563400938ED4 /* NSXMLParser+Taged.m in Sources */,
+				EE8AB69B16A5392F00938ED4 /* MSTranslateAccessTokenRequester.m in Sources */,
+				EE8AB69C16A5392F00938ED4 /* MSTranslateVendor.m in Sources */,
+				EE8AB69D16A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m in Sources */,
+				EE8AB69E16A5392F00938ED4 /* NSString+Extend.m in Sources */,
+				EE8AB6A316A5397A00938ED4 /* NSXMLParser+Taged.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
