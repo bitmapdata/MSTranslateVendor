@@ -28,7 +28,7 @@
     }
     failure:^(NSError *error)
     {
-        NSLog(@"error: %@", error);
+        NSLog(@"error_translate: %@", error);
     }];
     
     [vendor requestDetectTextLanguage:@"독도는 대한민국 영토 입니다." blockWithSuccess:
@@ -39,7 +39,7 @@
     failure:
      ^(NSError *error)
     {
-        
+        NSLog(@"error_language: %@", error);
     }];
     
     [super viewDidLoad];
