@@ -1,7 +1,7 @@
 MSTranslateVendor
 =================
 
-Microsoft Translator iOS API
+Microsoft Translate iOS API
 
 Microsoft ends free Bing Search API, moves to paid service on Azure Marketplace. Bing translator is deprecated, and it forces developers to use a more complicated way than the previous way using AppID.
 
