@@ -4,7 +4,7 @@
 //
 //  Software License Agreement (BSD License)
 //
-//  Copyright (c) 2013 Minseok Shim. All rights reserved.
+//  Copyright (c) 2013 Shim Minseok. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -73,5 +73,10 @@ typedef NSUInteger MSRequestAudioFormat;
                    language:(NSString *)language
                 audioFormat:(MSRequestAudioFormat)requestAudioFormat
            blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
+
+- (void)requestBreakSentences:(NSString *)text
+                   language:(NSString *)language
+           blockWithSuccess:(void (^)(NSDictionary *sentencesDict))successBlock
                     failure:(void (^)(NSError *error))failureBlock;
 @end
