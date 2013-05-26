@@ -1,7 +1,7 @@
 MSTranslateVendor
 =================
 
-Microsoft Translator iOS API
+Microsoft Translate iOS API
 
 Microsoft ends free Bing Search API, moves to paid service on Azure Marketplace. Bing translator is deprecated, and it forces developers to use a more complicated way than the previous way using AppID.
 
@@ -30,6 +30,8 @@ In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must 
 
     #define CLIENT_ID       @""
     #define CLIENT_SECRET   @""
+
+These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Compile Sources' Build Phase for each file if you aren't using ARC project-wide
 
 ## Sample Code ##
 
