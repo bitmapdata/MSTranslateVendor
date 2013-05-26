@@ -75,6 +75,19 @@ These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Co
      {
          NSLog(@"error_speak: %@", error);
      }];
+     
+    [vendor requestBreakSentences:@"Dokdo est un territoire de la République de Corée. Géographiquement situé dans l'est de la République de Corée.
+                                     Historiquement, géographiquement Vonage Dokdo est clairement le territoire de la République de Corée." 
+                                     language:@"fr" blockWithSuccess:
+     ^(NSDictionary *sentencesDict)
+     {
+        NSLog(@"sentences_dict:%@", sentencesDict);
+     }
+     failure:^(NSError *error)
+     {
+        
+     }];
+
 
 ## License ##
 
@@ -108,3 +121,7 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+## Contact ##
+
+bitmapdata.com@gmail.com
