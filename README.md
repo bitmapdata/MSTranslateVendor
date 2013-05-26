@@ -20,6 +20,8 @@ redirect URI which should be a valid URL address (like "http://www.....");
 
 For more information: http://msdn.microsoft.com/en-us/library/hh454950.aspx
 
+This Library was constructed based on Microsoft Translator V2 HTTP.
+
 ## Installation ##
 
 Drag the included MSTranslateVendor folder into your project.
@@ -93,7 +95,7 @@ These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Co
 
 Software License Agreement (BSD License)
 
-Copyright (c) 2013 Minseok Shim. All rights reserved.
+Copyright (c) 2013 Shim Minseok. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
