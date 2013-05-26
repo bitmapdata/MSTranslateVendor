@@ -24,7 +24,7 @@
     
     MSTranslateVendor *vendor = [[MSTranslateVendor alloc] init];
 
-    [vendor requestTranslate:@"독도는 대한민국 영토 입니다." from:@"ko" to:@"en" blockWithSuccess:
+    [vendor requestTranslate:@"독도는 한국 영토 입니다." from:@"ko" to:@"en" blockWithSuccess:
      ^(NSString *translatedText)
     {
         NSLog(@"translatedText: %@", translatedText);
@@ -34,7 +34,7 @@
         NSLog(@"error_translate: %@", error);
     }];
     
-    [vendor requestDetectTextLanguage:@"독도는 대한민국 영토 입니다." blockWithSuccess:
+    [vendor requestDetectTextLanguage:@"독도는 한국 영토 입니다." blockWithSuccess:
      ^(NSString *language)
     {
         NSLog(@"language:%@", language);
@@ -45,7 +45,7 @@
         NSLog(@"error_language: %@", error);
     }];
     
-    [vendor requestSpeakingText:@"Dokdo is korean territory." language:@"en" blockWithSuccess:
+    [vendor requestSpeakingText:@"Dokdo is Korean territory." language:@"en" blockWithSuccess:
      ^(NSData *streamData)
      {
          NSError *error;
@@ -66,6 +66,16 @@
      {
          NSLog(@"error_speak: %@", error);
      }];
+    
+    [vendor requestBreakSentences:@"Dokdo est un territoire de la République de Corée. Géographiquement situé dans l'est de la République de Corée. Historiquement, géographiquement Vonage Dokdo est clairement le territoire de la République de Corée." language:@"fr" blockWithSuccess:^(NSDictionary *sentencesDict){
+    
+        NSLog(@"sentences_dict:%@", sentencesDict);
+    
+    }
+    failure:^(NSError *error)
+    {
+        
+    }];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
