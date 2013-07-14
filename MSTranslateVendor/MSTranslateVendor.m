@@ -2,8 +2,8 @@
 //  MSTranslateVendor.m
 //  MSTranslateVendor
 //
-//  Created by Minseok Shim on 13. 1. 14..
-//  Copyright (c) 2013 Minseok Shim. All rights reserved.
+//  Created by SHIM MIN SEOK on 13. 1. 14..
+//  Copyright (c) 2013 SHIM MIN SEOK. All rights reserved.
 //
 
 #import "MSTranslateVendor.h"
@@ -11,6 +11,7 @@
 #import "NSMutableURLRequest+WebServiceExtend.h"
 #import "NSString+Extend.h"
 #import "NSXMLParser+Taged.h"
+#import "TranslateNotification.h"
 
 @interface MSTranslateVendor()
 {
@@ -18,19 +19,32 @@
     NSMutableURLRequest *_request;
     NSString *_elementString;
     NSMutableArray *_attributeCollection;
-    id translateNotification;
-    id detectNotification;
-    id breakSentencesNotification;
+    NSMutableArray *_translatedArray;
     NSMutableDictionary *_sentencesDict;
-    NSUInteger sentenceCount;
+    NSUInteger _sentenceCount;
 }
 @end
 
 @implementation MSTranslateVendor
 
-NSString * const kRequestTranslate       = @"requestTranslate";
-NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
-NSString * const kRequestBreakSentences  = @"requestBreakSentences";
+typedef enum
+{
+    REQUEST_TRANSLATE_TAG,
+    REQUEST_TRANSLATE_ARRAY_TAG,
+    REQUEST_DETECT_TEXT_TAG,
+    REQUEST_BREAKSENTENCE_TAG
+}ParserTag;
+
+#pragma mark - C functions
+
+NSString * generateSchema(NSString *);
+
+NSString * generateSchema(NSString * text)
+{
+    return [NSString stringWithFormat:@"<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\">%@</string>", text];
+}
+
+#pragma mark - Microsoft Translate Method
 
 - (void)requestTranslate:(NSString *)text
                       to:(NSString *)to
@@ -47,9 +61,9 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
                  failure:(void (^)(NSError *error))failureBlock
 {
     
-    if(!translateNotification)
+    if([TranslateNotification sharedObject].translateNotification)
     {
-        translateNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestTranslate object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
+        [TranslateNotification sharedObject].translateNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestTranslate object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
                                  {
                                      if([noti.object[@"isSuccessful"] boolValue])
                                      {
@@ -60,8 +74,8 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
                                          failureBlock(noti.object[@"result"]);
                                      }
                                      
-                                     [[NSNotificationCenter defaultCenter] removeObserver:translateNotification];
-                                     translateNotification = nil;
+                                     [[NSNotificationCenter defaultCenter] removeObserver:[TranslateNotification sharedObject].translateNotification];
+                                     [TranslateNotification sharedObject].translateNotification = nil;
                                  }];
     }
     
@@ -72,11 +86,11 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
     NSString *uriString = NULL;
     if(from)
     {
-           uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&from=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], from, to];
+        uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&from=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], from, to];
     }
     else
     {
-           uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],to];
+        uriString= [NSString stringWithFormat:@"http://api.microsofttranslator.com/v2/Http.svc/Translate?appId=%@&text=%@&to=%@", _appId, [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],to];
     }
     
     NSURL *uri = [NSURL URLWithString:uriString];
@@ -86,7 +100,7 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
          NSXMLParser *_parser = [[NSXMLParser alloc] initWithData:data];
-         _parser.tag = 1;
+         _parser.tag = REQUEST_TRANSLATE_TAG;
          _parser.delegate = self;
          
          if(error)
@@ -100,13 +114,100 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
      }];
 }
 
+- (void)requestTranslateArray:(NSArray *)translateArray
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock
+{
+    [self requestTranslateArray:translateArray from:nil to:to blockWithSuccess:successBlock failure:failureBlock];
+}
+
+- (void)requestTranslateArray:(NSArray *)translateArray
+                         from:(NSString *)from
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock
+{
+    if(![TranslateNotification sharedObject].translateArrayNotification)
+    {
+        [TranslateNotification sharedObject].translateArrayNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestTranslateArray object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
+                                                                        {
+                                                                            if([noti.object[@"isSuccessful"] boolValue])
+                                                                            {
+                                                                                successBlock(noti.object[@"result"]);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                failureBlock(noti.object[@"result"]);
+                                                                            }
+                                                                            
+                                                                            [[NSNotificationCenter defaultCenter] removeObserver:[TranslateNotification sharedObject].translateArrayNotification];
+                                                                            [TranslateNotification sharedObject].translateArrayNotification = nil;
+                                                                        }];
+    }
+    
+    _request = [[NSMutableURLRequest alloc] init];
+    
+    NSString *_appId = [NSString stringWithFormat:@"Bearer %@", (!_accessToken)?[MSTranslateAccessTokenRequester sharedRequester].accessToken:_accessToken];
+
+    NSMutableString *schemaCollection = [@"" mutableCopy];
+    for (NSString *text in translateArray)
+    {
+        [schemaCollection appendFormat:@"%@\n", generateSchema(text)];
+    }
+    
+    NSString *xmlString = [NSString stringWithFormat:@"<TranslateArrayRequest>\n\
+    <AppId />\n\
+    %@\n\
+    <Options>\n\
+    <Category xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\" />\n\
+    <ContentType xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\">text/plain</ContentType>\n\
+    <ReservedFlags xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\" />\n\
+    <State xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\" />\n\
+    <Uri xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\" />\n\
+    <User xmlns=\"http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2\" />\n\
+    </Options>\n\
+    <Texts> %@ </Texts>\n\
+    <To>%@</To>\n\
+    </TranslateArrayRequest>", from?[NSString stringWithFormat:@"<From>%@</From>",from]:@"", schemaCollection, to];
+    
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}" options:0 error:&error];
+    NSString *result = [regex stringByReplacingMatchesInString:xmlString options:0 range:NSMakeRange(0, [xmlString length]) withTemplate:@" "];
+    
+    NSURL *requestURL = [NSURL URLWithString:@"http://api.microsofttranslator.com/v2/Http.svc/TranslateArray"];
+    
+    [_request setURL:[requestURL standardizedURL]];
+    [_request setHTTPMethod:@"POST"];
+    [_request setHTTPBody:[result dataUsingEncoding:NSUTF8StringEncoding]];
+    [_request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+    [_request setValue:_appId forHTTPHeaderField:@"Authorization"];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         NSXMLParser *_parser = [[NSXMLParser alloc] initWithData:data];
+         _parser.tag = REQUEST_TRANSLATE_ARRAY_TAG;
+         _parser.delegate = self;
+         
+         if(error)
+         {
+             failureBlock(error);
+         }
+         if(![_parser parse])
+         {
+             failureBlock(_parser.parserError);
+         }
+         
+     }];
+}
+
 - (void)requestDetectTextLanguage:(NSString *)text
                  blockWithSuccess:(void (^)(NSString *language))successBlock
                           failure:(void (^)(NSError *error))failureBlock
 {
-    if(!detectNotification)
+    if(![TranslateNotification sharedObject].detectNotification)
     {
-        detectNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestDetectLanguage object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
+        [TranslateNotification sharedObject].detectNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestDetectLanguage object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
                               {
                                   if([noti.object[@"isSuccessful"] boolValue])
                                   {
@@ -117,8 +218,8 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
                                       failureBlock(noti.object[@"result"]);
                                   }
                                   
-                                  [[NSNotificationCenter defaultCenter] removeObserver:detectNotification];
-                                  detectNotification = nil;
+                                  [[NSNotificationCenter defaultCenter] removeObserver:[TranslateNotification sharedObject].detectNotification];
+                                  [TranslateNotification sharedObject].detectNotification = nil;
                               }];
     }
     
@@ -135,7 +236,7 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
          NSXMLParser *_parser = [[NSXMLParser alloc] initWithData:data];
-         _parser.tag = 2;
+         _parser.tag = REQUEST_DETECT_TEXT_TAG;
          _parser.delegate = self;
          
          if(error)
@@ -205,9 +306,9 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
                       failure:(void (^)(NSError *error))failureBlock
 {
     
-    if(!breakSentencesNotification)
+    if(![TranslateNotification sharedObject].breakSentencesNotification)
     {
-        breakSentencesNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestBreakSentences object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
+        [TranslateNotification sharedObject].breakSentencesNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestBreakSentences object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
                               {
                                   if([noti.object[@"isSuccessful"] boolValue])
                                   {
@@ -218,8 +319,8 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
                                       failureBlock(noti.object[@"result"]);
                                   }
                                   
-                                  [[NSNotificationCenter defaultCenter] removeObserver:detectNotification];
-                                  detectNotification = nil;
+                                  [[NSNotificationCenter defaultCenter] removeObserver:[TranslateNotification sharedObject].breakSentencesNotification];
+                                  [TranslateNotification sharedObject].breakSentencesNotification = nil;
                               }];
     }
     
@@ -234,7 +335,7 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
          NSXMLParser *_parser = [[NSXMLParser alloc] initWithData:data];
-         _parser.tag = 3;
+         _parser.tag = REQUEST_BREAKSENTENCE_TAG;
          _parser.delegate = self;
          
          if(error)
@@ -255,15 +356,23 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
 {
     _elementString = NULL;
     _attributeCollection = [@[] mutableCopy];
+    _translatedArray = [@[] mutableCopy];
     _sentencesDict = [@{} mutableCopy];
-    sentenceCount = 1;
+    _sentenceCount = 1;
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     _responseData = nil;
     
-    if(parser.tag == 3)
+    if(parser.tag == REQUEST_TRANSLATE_ARRAY_TAG)
+    {
+        if([_translatedArray count])
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslateArray object:@{@"result" : _translatedArray, @"isSuccessful": @YES}];
+        }
+    }
+    if(parser.tag == REQUEST_BREAKSENTENCE_TAG)
     {
         if([[_sentencesDict allKeys] count])
         {
@@ -279,58 +388,73 @@ NSString * const kRequestBreakSentences  = @"requestBreakSentences";
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    if([_elementString isEqualToString:@"string"])
+    if(parser.tag == REQUEST_TRANSLATE_TAG)
     {
-        if(parser.tag == 1)
-        {
+        if([_elementString isEqualToString:@"string"])
             [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslate object:@{@"result" : string, @"isSuccessful": @YES}];
-        }
-        else if(parser.tag == 2)
+        else if([_elementString isEqualToString:@"h1"])
         {
+            if([string isEqualToString:@"Argument Exception"])
+            {
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+                [errorInfo setValue:@"Argument Exception" forKey:NSLocalizedFailureReasonErrorKey];
+                NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-3 userInfo:errorInfo];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslate object:@{@"result" : error, @"isSuccessful": @NO}];
+            }
+        }
+        else if([_elementString isEqualToString:@"p"])
+        {
+            if([string isEqualToString:@"Invalid appId"])
+            {
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+                [errorInfo setValue:@"Invalid appId" forKey:NSLocalizedFailureReasonErrorKey];
+                NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-4 userInfo:errorInfo];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslate object:@{@"result" : error, @"isSuccessful": @NO}];
+            }
+        }
+
+    }
+    else if(parser.tag == REQUEST_TRANSLATE_ARRAY_TAG)
+    {
+        if([_elementString isEqualToString:@"TranslatedText"])
+        {
+            [_translatedArray addObject:string];
+        }
+    }
+    else if(parser.tag == REQUEST_DETECT_TEXT_TAG)
+    {
+        if([_elementString isEqualToString:@"string"])
             [[NSNotificationCenter defaultCenter] postNotificationName:kRequestDetectLanguage object:@{@"result" : string, @"isSuccessful": @YES}];
-        }
-    }
-    else if([_elementString isEqualToString:@"h1"])
-    {
-        if([string isEqualToString:@"Argument Exception"])
+        else if([_elementString isEqualToString:@"h1"])
         {
-            NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
-            [errorInfo setValue:@"Argument Exception" forKey:NSLocalizedFailureReasonErrorKey];
-            NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-3 userInfo:errorInfo];
-            
-            if(parser.tag == 1)
+            if([string isEqualToString:@"Argument Exception"])
             {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslate object:@{@"result" : error, @"isSuccessful": @NO}];
-            }
-            else if(parser.tag == 2)
-            {
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+                [errorInfo setValue:@"Argument Exception" forKey:NSLocalizedFailureReasonErrorKey];
+                NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-3 userInfo:errorInfo];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:kRequestDetectLanguage object:@{@"result" : error, @"isSuccessful": @NO}];
             }
         }
-    }
-    else if([_elementString isEqualToString:@"p"])
-    {
-        if([string isEqualToString:@"Invalid appId"])
+        else if([_elementString isEqualToString:@"p"])
         {
-            NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
-            [errorInfo setValue:@"Invalid appId" forKey:NSLocalizedFailureReasonErrorKey];
-            NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-4 userInfo:errorInfo];
-            
-            if(parser.tag == 1)
+            if([string isEqualToString:@"Invalid appId"])
             {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kRequestTranslate object:@{@"result" : error, @"isSuccessful": @NO}];
-            }
-            else if(parser.tag == 2)
-            {
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionary];
+                [errorInfo setValue:@"Invalid appId" forKey:NSLocalizedFailureReasonErrorKey];
+                NSError *error = [NSError errorWithDomain:@"MSTranslateVendorError" code:-4 userInfo:errorInfo];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:kRequestDetectLanguage object:@{@"result" : error, @"isSuccessful": @NO}];
             }
         }
-    }
-    else if([_elementString isEqualToString:@"int"])
-    {
-        [_sentencesDict setValue:string forKey:[NSString stringWithFormat:@"%d", sentenceCount]];
-        
-        sentenceCount ++;
+        else if([_elementString isEqualToString:@"int"])
+        {
+            [_sentencesDict setValue:string forKey:[NSString stringWithFormat:@"%d", _sentenceCount]];
+            
+            _sentenceCount ++;
+        }
     }
 }
 
