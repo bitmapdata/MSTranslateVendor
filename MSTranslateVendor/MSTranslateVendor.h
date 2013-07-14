@@ -4,7 +4,7 @@
 //
 //  Software License Agreement (BSD License)
 //
-//  Copyright (c) 2013 Shim Minseok. All rights reserved.
+//  Copyright (c) 2013 SHIM MIN SEOK. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -60,10 +60,23 @@ typedef NSUInteger MSRequestAudioFormat;
         blockWithSuccess:(void (^)(NSString *translatedText))successBlock
                  failure:(void (^)(NSError *error))failureBlock;
 
+- (void)requestTranslateArray:(NSArray *)translateArray
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock;
+
+//if 'from' is a nil, 'from language' automatically detect.
+- (void)requestTranslateArray:(NSArray *)translateArray
+                         from:(NSString *)from
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock;
+
 - (void)requestDetectTextLanguage:(NSString *)text
                  blockWithSuccess:(void (^)(NSString *language))successBlock
                           failure:(void (^)(NSError *error))failureBlock;
 
+//returned audio type .mp3
 - (void)requestSpeakingText:(NSString *)text
                    language:(NSString *)language
            blockWithSuccess:(void (^)(NSData *audioData))successBlock
