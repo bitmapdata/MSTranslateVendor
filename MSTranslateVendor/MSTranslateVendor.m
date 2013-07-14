@@ -61,7 +61,7 @@ NSString * generateSchema(NSString * text)
                  failure:(void (^)(NSError *error))failureBlock
 {
     
-    if([TranslateNotification sharedObject].translateNotification)
+    if(![TranslateNotification sharedObject].translateNotification)
     {
         [TranslateNotification sharedObject].translateNotification = [[NSNotificationCenter defaultCenter] addObserverForName:kRequestTranslate object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *noti)
                                  {
@@ -449,7 +449,10 @@ NSString * generateSchema(NSString * text)
                 [[NSNotificationCenter defaultCenter] postNotificationName:kRequestDetectLanguage object:@{@"result" : error, @"isSuccessful": @NO}];
             }
         }
-        else if([_elementString isEqualToString:@"int"])
+    }
+    else if(parser.tag == REQUEST_BREAKSENTENCE_TAG)
+    {
+        if([_elementString isEqualToString:@"int"])
         {
             [_sentencesDict setValue:string forKey:[NSString stringWithFormat:@"%d", _sentenceCount]];
             
