@@ -1,5 +1,5 @@
 //
-//  MSTranslateVendor.m
+//  MSTranslateAccessTokenRequester.m
 //  MSTranslateVendor
 //
 //  Created by Minseok Shim on 13. 1. 14..
@@ -31,6 +31,22 @@ static MSTranslateAccessTokenRequester *sharedRequester = nil;
         dispatch_once(&pred, ^{ sharedRequester = [[self alloc] init]; });
     }
     return sharedRequester;
+}
+
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+    {
+        if(![CLIENT_ID length] || ![CLIENT_SECRET length])
+        {
+            NSException* exception = [NSException exceptionWithName:@"Is not defined CLIENT_ID or CLIENT_SECRET" reason:@"Must specified CLIEN_ID or CLIENT_SECRET refer a https://github.com/bitmapdata/MSTranslateVendor" userInfo:nil];
+            [exception raise];
+        }
+    }
+    
+    return self;
 }
 
 - (void)requestAsynchronousAccessToken:(NSString *)client_id clientSecret:(NSString *)client_secret
@@ -78,7 +94,6 @@ static MSTranslateAccessTokenRequester *sharedRequester = nil;
     {
         id jsonObjects = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *keys = [jsonObjects allKeys];
-        
         for (NSString *key in keys)
         {
             if([key isEqualToString:@"access_token"])
