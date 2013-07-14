@@ -2,8 +2,8 @@
 //  NSObject+Subscripts.h
 //  MSTranslateVendor
 //
-//  Created by Minseok Shim on 13. 1. 14..
-//  Copyright (c) 2013 Minseok Shim. All rights reserved.
+//  Created by SHIM MIN SEOK on 13. 1. 14..
+//  Copyright (c) 2013 SHIM MIN SEOK. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
