@@ -8,12 +8,12 @@
 
 #import "TranslateNotification.h"
 
-@implementation TranslateNotification
-
 NSString * const kRequestTranslate       = @"requestTranslate";
 NSString * const kRequestTranslateArray  = @"requestTranslateArray";
 NSString * const kRequestDetectLanguage  = @"requestDetectLanguage";
 NSString * const kRequestBreakSentences  = @"requestBreakSentences";
+
+@implementation TranslateNotification
 
 static TranslateNotification *sharedInstance = nil;
 + (TranslateNotification *)sharedObject
