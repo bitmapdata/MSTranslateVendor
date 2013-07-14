@@ -76,7 +76,7 @@ typedef NSUInteger MSRequestAudioFormat;
                  blockWithSuccess:(void (^)(NSString *language))successBlock
                           failure:(void (^)(NSError *error))failureBlock;
 
-//returned audio type .mp3
+//return audio type default(.mp3)
 - (void)requestSpeakingText:(NSString *)text
                    language:(NSString *)language
            blockWithSuccess:(void (^)(NSData *audioData))successBlock
@@ -88,6 +88,7 @@ typedef NSUInteger MSRequestAudioFormat;
            blockWithSuccess:(void (^)(NSData *audioData))successBlock
                     failure:(void (^)(NSError *error))failureBlock;
 
+//return number of a letter. a key is began from @"1",... @"1" means first sentence.
 - (void)requestBreakSentences:(NSString *)text
                    language:(NSString *)language
            blockWithSuccess:(void (^)(NSDictionary *sentencesDict))successBlock
