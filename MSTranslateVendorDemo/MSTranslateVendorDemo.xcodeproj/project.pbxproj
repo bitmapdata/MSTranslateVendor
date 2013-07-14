@@ -22,6 +22,7 @@
 		EE8AB69E16A5392F00938ED4 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB69816A5392F00938ED4 /* NSString+Extend.m */; };
 		EE8AB6A316A5397A00938ED4 /* NSXMLParser+Taged.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */; };
 		EE8AB6A616A541DD00938ED4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8AB6A516A541DD00938ED4 /* AVFoundation.framework */; };
+		EE8AEB7A1791A78A0012474D /* TranslateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8AEB791791A7890012474D /* TranslateNotification.m */; };
 		EEEC567816A3C6570074E885 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567716A3C6570074E885 /* UIKit.framework */; };
 		EEEC567A16A3C6570074E885 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567916A3C6570074E885 /* Foundation.framework */; };
 		EEEC567C16A3C6570074E885 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEC567B16A3C6570074E885 /* CoreGraphics.framework */; };
@@ -52,6 +53,8 @@
 		EE8AB6A216A5397900938ED4 /* NSXMLParser+Taged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLParser+Taged.h"; sourceTree = "<group>"; };
 		EE8AB6A416A5398100938ED4 /* NSObject+Subscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Subscripts.h"; sourceTree = "<group>"; };
 		EE8AB6A516A541DD00938ED4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EE8AEB781791A7880012474D /* TranslateNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateNotification.h; sourceTree = "<group>"; };
+		EE8AEB791791A7890012474D /* TranslateNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateNotification.m; sourceTree = "<group>"; };
 		EEEC567316A3C6570074E885 /* MSTranslateVendorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSTranslateVendorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEEC567716A3C6570074E885 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EEEC567916A3C6570074E885 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,6 +99,8 @@
 				EE8AB69816A5392F00938ED4 /* NSString+Extend.m */,
 				EE8AB6A216A5397900938ED4 /* NSXMLParser+Taged.h */,
 				EE8AB6A116A5397900938ED4 /* NSXMLParser+Taged.m */,
+				EE8AEB781791A7880012474D /* TranslateNotification.h */,
+				EE8AEB791791A7890012474D /* TranslateNotification.m */,
 			);
 			name = MSTranslateVendor;
 			path = ../MSTranslateVendor;
@@ -176,7 +181,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = "Minseok Shim";
+				ORGANIZATIONNAME = "SHIM MIN SEOK";
 			};
 			buildConfigurationList = EEEC566D16A3C6570074E885 /* Build configuration list for PBXProject "MSTranslateVendorDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -224,6 +229,7 @@
 				EE8AB69D16A5392F00938ED4 /* NSMutableURLRequest+WebServiceExtend.m in Sources */,
 				EE8AB69E16A5392F00938ED4 /* NSString+Extend.m in Sources */,
 				EE8AB6A316A5397A00938ED4 /* NSXMLParser+Taged.m in Sources */,
+				EE8AEB7A1791A78A0012474D /* TranslateNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +278,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -294,7 +300,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
