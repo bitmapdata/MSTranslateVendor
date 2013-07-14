@@ -24,7 +24,12 @@ MSTranslateVendor was constructed based on Microsoft Translator V2 HTTP. and is 
 
 ## Installation ##
 
-Drag the included MSTranslateVendor folder into your project.
+MSTranslateVendor is possible via CocoaPods. Just add the following to your Podfile.
+
+    platform :ios
+    pod 'MSTranslateVendor'
+
+Another way to, drag the included <b>MSTranslateVendor</b> folder into your project.
 
 ## Usage ##
 
@@ -36,9 +41,6 @@ In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must 
 These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Compile Sources' Build Phase for each file if you aren't using ARC project-wide
 
 ## Supported Method ##
-
-    //default is getting a [MSTranslateAccessTokenRequester sharedRequester].accessToken
-	@property (nonatomic, strong) NSString *accessToken;
 
 	- (void)requestTranslate:(NSString *)text
                       to:(NSString *)to
