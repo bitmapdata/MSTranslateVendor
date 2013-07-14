@@ -6,8 +6,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'BSD' }
   s.author       = { "bitmapdata" => "bitmapdata.com@gmail.com" }
   s.source       = { :git => "https://github.com/bitmapdata/MSTranslateVendor.git", :tag => "1.0.0" }
-  s.source_files = 'Classes', 'Classes/**/*.{h,m}'
-  s.exclude_files = 'Classes/Exclude'
+  s.source_files = 'MSTrnaslateVendor/*.{h,m}'
   s.requires_arc = true
-  s.ios.deployment_target = "4.3"
+  s.ios.deployment_target = "5.0"
 end
