@@ -20,7 +20,7 @@ redirect URI which should be a valid URL address (like "http://www.....");
 
 For more information: http://msdn.microsoft.com/en-us/library/hh454950.aspx
 
-This Library was constructed based on Microsoft Translator V2 HTTP.
+MSTranslateVendor was constructed based on Microsoft Translator V2 HTTP. and is based on block-based.  As much as possible to not have a dependency on another framework is designed Cocoa library only was used.
 
 ## Installation ##
 
@@ -34,6 +34,57 @@ In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must 
     #define CLIENT_SECRET   @""
 
 These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Compile Sources' Build Phase for each file if you aren't using ARC project-wide
+
+## Supported Method ##
+
+    //default is getting a [MSTranslateAccessTokenRequester sharedRequester].accessToken
+	@property (nonatomic, strong) NSString *accessToken;
+
+	- (void)requestTranslate:(NSString *)text
+                      to:(NSString *)to
+        blockWithSuccess:(void (^)(NSString *translatedText))successBlock
+                 failure:(void (^)(NSError *error))failureBlock;
+
+	//if 'from' is a nil, 'from language' automatically detect.
+	- (void)requestTranslate:(NSString *)text
+                    from:(NSString *)from
+                      to:(NSString *)to
+        blockWithSuccess:(void (^)(NSString *translatedText))successBlock
+                 failure:(void (^)(NSError *error))failureBlock;
+
+	- (void)requestTranslateArray:(NSArray *)translateArray
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock;
+
+	//if 'from' is a nil, 'from language' automatically detect.
+	- (void)requestTranslateArray:(NSArray *)translateArray
+                         from:(NSString *)from
+                           to:(NSString *)to
+             blockWithSuccess:(void (^)(NSArray *translatedTextArray))successBlock
+                      failure:(void (^)(NSError *error))failureBlock;
+
+	- (void)requestDetectTextLanguage:(NSString *)text
+                 blockWithSuccess:(void (^)(NSString *language))successBlock
+                          failure:(void (^)(NSError *error))failureBlock;
+
+	//return audio type default(.mp3)
+	- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
+
+	- (void)requestSpeakingText:(NSString *)text
+                   language:(NSString *)language
+                audioFormat:(MSRequestAudioFormat)requestAudioFormat
+           blockWithSuccess:(void (^)(NSData *audioData))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
+
+	//return number of a letter. a key is began from @"1",... @"1" means first sentence.
+	- (void)requestBreakSentences:(NSString *)text
+                   language:(NSString *)language
+           blockWithSuccess:(void (^)(NSDictionary *sentencesDict))successBlock
+                    failure:(void (^)(NSError *error))failureBlock;
 
 ## Sample Code ##
 
@@ -89,13 +140,20 @@ These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Co
      {
         
      }];
+     
+	[vendor requestTranslateArray:@[@"만나서 반갑습니다.", @"이 라이브러리가 당신에게 조금이나마 도움이 되기를 바랍니다.", @"최선을 다하겠습니다. 감사합니다."] from:@"ko" to:@"en" blockWithSuccess:^(NSArray *translatedTextArray) {
+        
+        NSLog(@"translatedTextArray:%@", translatedTextArray);
+    } failure:^(NSError *error) {
+        
+    }];
 
 
 ## License ##
 
 Software License Agreement (BSD License)
 
-Copyright (c) 2013 Shim Minseok. All rights reserved.
+Copyright (c) 2013 SHIM MIN SEOK. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
