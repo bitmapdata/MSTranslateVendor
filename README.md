@@ -1,6 +1,9 @@
 MSTranslateVendor
 =================
 
+[![Version](http://cocoapod-badges.herokuapp.com/v/MSTranslateVendor/badge.png)](http://cocoapod-badges.herokuapp.com/v/MSTranslateVendor/badge.png)
+[![Platform](http://cocoapod-badges.herokuapp.com/p/MSTranslateVendor/badge.png)](http://cocoapod-badges.herokuapp.com/p/MSTranslateVendor/badge.png)
+
 Microsoft Translate iOS API
 
 Microsoft ends free Bing Search API, moves to paid service on Azure Marketplace. Bing translator is deprecated, and it forces developers to use a more complicated way than the previous way using AppID.
