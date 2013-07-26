@@ -36,7 +36,7 @@ Another way to, drag the included <b>MSTranslateVendor</b> folder into your proj
 
 ## Usage ##
 
-In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must change to Client id and Client secret your registered applications. refer a above image.
+In <b>`MSTranslateAccessTokenRequester.h`</b> `CLIENT_ID`, `CLIENT_SECRET` must change to Client id and Client secret your registered applications. refer a above image. 
 
     #define CLIENT_ID       @""
     #define CLIENT_SECRET   @""
@@ -96,7 +96,11 @@ These classes was written under the ARC. Be sure to specify `-fobjc-arc` the 'Co
     #import "MSTranslateAccessTokenRequester.h"
     #import "MSTranslateVendor.h"
     
-    //Must be called before used to MSTranslateVendor
+    /*
+      The value of access token can be used for subsequent calls to the Microsoft Translator API. 
+      The access token expires after 10 minutes. It is always better to check elapsed time between time at which token 
+      issued and current time.
+    */
     [[MSTranslateAccessTokenRequester sharedRequester] requestSynchronousAccessToken:CLIENT_ID clientSecret:CLIENT_SECRET];
     
     MSTranslateVendor *vendor = [[MSTranslateVendor alloc] init];
